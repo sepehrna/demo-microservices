@@ -1,0 +1,31 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: microservices
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: 123
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+
+  your-application:
+    build: .
+    container_name: demo-microservices
+    ports:
+      - "8093:8093"
+    depends_on:
+      - postgres
+      - mongo
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/microservices
+      SPRING_DATASOURCE_USERNAME: demo
+      SPRING_DATASOURCE_PASSWORD: 123
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/orders
