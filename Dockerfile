@@ -6,7 +6,7 @@ WORKDIR /app
 # Application JAR file for the container
 COPY target/microservices-1.0.0.jar /app/app.jar
 
-# Expose the port your application runs on
+# Expose the port
 EXPOSE 8093
 
 # Run the JAR file
